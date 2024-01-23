@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-""" List documents """
+""" pythoncode thar List all docs in a collection """
 import pymongo
 
 
 def list_all(mongo_collection) -> list:
-    """ Lists all documents in a collection
+    """ Listing all docs in a collection
         Args:
             mongo_collection: Collection of object
 
