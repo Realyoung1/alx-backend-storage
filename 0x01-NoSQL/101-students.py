@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-""" Top students  """
+""" pyfuncs that returns all students with same scores  """
 import pymongo
 
 
 def top_students(mongo_collection):
-    """ Average top students
+    """ same Average top score students
 
         Args:
             mongo_collection: Collection to find avg top
