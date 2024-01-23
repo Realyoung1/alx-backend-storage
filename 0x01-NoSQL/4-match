@@ -1,3 +1,2 @@
-// All matches
+// this scrpit listed all docs that matches
 db.school.find({ name: "Holberton school" })
-
