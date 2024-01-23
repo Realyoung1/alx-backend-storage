@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-""" Update School """
+""" pyfuncs that changes all topics School """
 import pymongo
 from typing import List
 
 
 def update_topics(mongo_collection, name, topics):
-    """ Change the data
+    """ Changing all the topic data
     
         Args:
             mongo_collection:
