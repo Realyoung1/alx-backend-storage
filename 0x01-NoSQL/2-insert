@@ -1,3 +1,2 @@
-// Insert in the collection
+// scripted that Insert docs in the collection school
 db.school.insert({ name : "Holberton school" })
-
