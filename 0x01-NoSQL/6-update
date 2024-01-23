@@ -1,3 +1,2 @@
-// Update all matched
+// scripted adding new attri to the school collection
 db.school.update({name: 'Holberton school'}, {$set: {address: '972 Mission street'}}, {multi: true})
-
