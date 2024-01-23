@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-""" Insert document """
+""" pythonfuncs that Insert docs in the collections """
 import pymongo
 
 
 def insert_school(mongo_collection, **kwargs):
-    """ Insert a school with features
+    """ Inserting new docs features
 
         Args:
             mongo_collection: Collection to pass
