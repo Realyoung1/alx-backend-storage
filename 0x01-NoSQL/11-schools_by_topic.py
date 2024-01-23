@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-""" Where can I learn Python? """
+""" pycofuncs that returns all the lists in the collections """
 import pymongo
 
 
 def schools_by_topic(mongo_collection, topic: str):
-    """ Search the school based in school
+    """ listing school having a specific topic
 
         Args:
             mongo_collection: Collection
