@@ -1,3 +1,3 @@
-// Regex Filter
+// scripted thats list all docs starting with same name
 db.school.find({'name': /^Holberton/})
 
