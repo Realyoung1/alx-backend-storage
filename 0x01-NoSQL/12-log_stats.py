@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Log stats """
+""" pyscript providing stats about NGINx """
 from pymongo import MongoClient
 
 
