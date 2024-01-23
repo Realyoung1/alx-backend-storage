@@ -5,38 +5,39 @@ from pymongo import MongoClient
 
 if __name__ == "__main__":
     client = MongoClient('mongodb://127.0.0.1:27017')
-    db_nginx = client.logs.nginx
-    methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
-
-    count_logs = db_nginx.count_documents({})
-    print(f'{count_logs} logs')
-
-    print('Methods:')
-    for method in methods:
-        count_method = db_nginx.count_documents({'method': method})
-        print(f'\tmethod {method}: {count_method}')
-
-    check = db_nginx.count_documents(
-        {"method": "GET", "path": "/status"}
-    )
-
-    print(f'{check} status check')
-    print("IPs:")
-    ips = db_nginx.aggregate([
-        {"$group":
-            {
-                "_id": "$ip",
-                "count": {"$sum": 1}
+    nginx_logs = client.logs.nginx
+    # get number of documents in collection
+    docs_num = nginx_logs.count_documents({})
+    get_num = nginx_logs.count_documents({'method': 'GET'})
+    post_num = nginx_logs.count_documents({'method': 'POST'})
+    put_num = nginx_logs.count_documents({'method': 'PUT'})
+    patch_num = nginx_logs.count_documents({'method': 'PATCH'})
+    delete_num = nginx_logs.count_documents({'method': 'DELETE'})
+    get_status = nginx_logs.count_documents({'method': 'GET',
+                                             'path': '/status'})
+    IPs_count = nginx_logs.aggregate([
+        {
+            '$group': {
+                '_id': "$ip",
+                'count': {'$sum': 1}
             }
         },
-        {"$sort": {"count": -1}},
-        {"$limit": 10},
-        {"$project": {
-            "_id": 0,
-            "ip": "$_id",
-            "count": 1
-        }}
+        {
+            "$sort": {"count": -1}
+        }
     ])
-
-    for ip in ips:
-        print(f"\t{ip.get('ip')}: {ip.get('count')}")
+    print("{} logs".format(docs_num))
+    print("Methods:")
+    print("\tmethod GET: {}".format(get_num))
+    print("\tmethod POST: {}".format(post_num))
+    print("\tmethod PUT: {}".format(put_num))
+    print("\tmethod PATCH: {}".format(patch_num))
+    print("\tmethod DELETE: {}".format(delete_num))
+    print("{} status check".format(get_status))
+    print("IPs:")
+    x = 0
+    for i in IPs_count:
+        print("\t{}: {}".format(i.get('_id'), i.get('count')))
+        x += 1
+        if x > 9:
+            break
