@@ -10,7 +10,7 @@ from functools import wraps
 
 def replay(method: Callable) -> None:
     """
-    Display the history of calls of a particular function
+    Displaying a history of calls for a certain funcs
     """
     name = method.__qualname__
     r = method.__self__._redis
@@ -27,12 +27,12 @@ def replay(method: Callable) -> None:
 
 def call_history(method: Callable) -> Callable:
     """
-    Takes a callable argument and returns a callable
+    Taking some callable args and returns a callable
     """
     @wraps(method)
     def history(self, *args, **kwargs):
         """
-        Store history of inputs and outputs for a function
+        Storing the history of inputs and outputs
         """
         name = method.__qualname__
         self._redis.rpush("{}:inputs".format(name), str(args))
@@ -44,12 +44,12 @@ def call_history(method: Callable) -> Callable:
 
 def count_calls(method: Callable) -> Callable:
     """
-    Takes a callable argument and returns a callable
+    Taking a callable args and returns a callable
     """
     @wraps(method)
     def counter(self, *args, **kwargs):
         """
-        Count howm many times a method is called
+        Countings howm many time a metd is called
         """
         self._redis.incr(method.__qualname__)
         return method(self, *args, **kwargs)
@@ -58,11 +58,11 @@ def count_calls(method: Callable) -> Callable:
 
 class Cache:
     """
-    Create an instance of a Redis client and flush it using flushdb
+    Creainge an instances of a Redis client and flush it using flushdb
     """
     def __init__(self):
         """
-        Create an instance of a Redis client and flush it using flushdb
+        Creating an instances of a Redis client and flush it using flushdb
         """
         self._redis = redis.Redis()
         self._redis.flushdb()
@@ -71,7 +71,7 @@ class Cache:
     @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """
-        Stores data in Redis with a randomly-generated key and returns the key
+        Storing a data ins with a randomated key and returns the key
         Args:
             data (str, bytes, int, float): data to be stored
         """
